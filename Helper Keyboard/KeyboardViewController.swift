@@ -66,6 +66,10 @@ class KeyboardViewController: UIInputViewController {
 
     var capsLockOn = true
 
+    var currentWord = ""
+
+let placeholderText = "Start Typing!"
+
     @IBOutlet weak var row1: UIView!
     @IBOutlet weak var row2: UIView!
     @IBOutlet weak var row3: UIView!
@@ -74,7 +78,20 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet weak var charSet1: UIView!
     @IBOutlet weak var charSet2: UIView!
 
-    
+    @IBOutlet weak var suggestionButton: UIButton!
+
+    @IBAction func suggestionButtonTapped(_ sender: Any) {
+        guard suggestionButton.titleLabel?.text != placeholderText else { return }
+
+        for _ in 0..<currentWord.count {
+            textDocumentProxy.deleteBackward()
+        }
+
+        let suggestionUsed = suggestionButton.titleLabel?.text ?? ""
+        textDocumentProxy.insertText(suggestionUsed)
+        currentWord = suggestionUsed
+        suggestionButton.setTitle(placeholderText, for: .normal)
+    }
 
     var suggestionString: UILexicon?
 
@@ -85,9 +102,6 @@ class KeyboardViewController: UIInputViewController {
         view = objects[0] as? UIView
 
         charSet2.isHidden = true
-
-
-
     }
 
     @IBAction func nextKeyboardPressed(button: UIButton) {
@@ -106,6 +120,11 @@ class KeyboardViewController: UIInputViewController {
     @IBAction func keyPressed(button: UIButton) {
         let string = button.titleLabel!.text
         (textDocumentProxy as UIKeyInput).insertText("\(string!)")
+        currentWord += string!
+
+        // TODO: Guess sentence
+        suggestionButton.setTitle("Add Bullsheet", for: .normal)
+
 
         UIView.animate(withDuration: 0.2, animations: {
             button.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
@@ -117,14 +136,16 @@ class KeyboardViewController: UIInputViewController {
 
     @IBAction func backSpacePressed(button: UIButton) {
         (textDocumentProxy as UIKeyInput).deleteBackward()
+        _ = currentWord.popLast()
     }
 
     @IBAction func spacePressed(button: UIButton) {
         (textDocumentProxy as UIKeyInput).insertText(" ")
+        currentWord += " "
     }
 
     @IBAction func returnPressed(button: UIButton) {
-        (textDocumentProxy as UIKeyInput).insertText("\n")
+//        (textDocumentProxy as UIKeyInput).insertText("\n")
     }
 
     @IBAction func charSetPressed(button: UIButton) {
@@ -154,8 +175,5 @@ class KeyboardViewController: UIInputViewController {
         }
     }
 
-    @objc func useSuggestion() {
-        
-    }
 
 }

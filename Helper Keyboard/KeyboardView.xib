@@ -14,6 +14,7 @@
                 <outlet property="row2" destination="mdI-mv-xgq" id="Pbg-0f-cfT"/>
                 <outlet property="row3" destination="N1M-aZ-M8N" id="UBX-18-ioS"/>
                 <outlet property="row4" destination="gIG-b0-G9P" id="Z60-pA-oEe"/>
+                <outlet property="suggestionButton" destination="HB2-to-Kcj" id="FQG-Vr-dwu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,20 +28,22 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKZ-ej-tuy">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Start Typing" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a24-Ak-FFK">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HB2-to-Kcj">
                                     <rect key="frame" x="8" y="8" width="304" height="26"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
+                                    <state key="normal" title="Start Typing"/>
+                                    <connections>
+                                        <action selector="suggestionButtonTapped:" destination="-1" eventType="touchUpInside" id="3mM-Dh-iq8"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="a24-Ak-FFK" firstAttribute="top" secondItem="qKZ-ej-tuy" secondAttribute="top" constant="8" id="T70-RL-gPL"/>
+                                <constraint firstAttribute="trailing" secondItem="HB2-to-Kcj" secondAttribute="trailing" constant="8" id="9mC-3f-rSX"/>
+                                <constraint firstItem="HB2-to-Kcj" firstAttribute="leading" secondItem="qKZ-ej-tuy" secondAttribute="leading" constant="8" id="AKu-KS-h0l"/>
+                                <constraint firstItem="HB2-to-Kcj" firstAttribute="top" secondItem="qKZ-ej-tuy" secondAttribute="top" constant="8" id="Cll-4V-ZjM"/>
+                                <constraint firstAttribute="bottom" secondItem="HB2-to-Kcj" secondAttribute="bottom" constant="8" id="Viu-R7-m2l"/>
                                 <constraint firstAttribute="height" constant="42" id="Xxb-XB-zwL"/>
-                                <constraint firstAttribute="trailing" secondItem="a24-Ak-FFK" secondAttribute="trailing" constant="8" id="Y4q-GP-hAG"/>
                                 <constraint firstAttribute="width" constant="320" id="ad3-MY-scy"/>
-                                <constraint firstItem="a24-Ak-FFK" firstAttribute="leading" secondItem="qKZ-ej-tuy" secondAttribute="leading" constant="8" id="oul-MA-lVn"/>
-                                <constraint firstAttribute="bottom" secondItem="a24-Ak-FFK" secondAttribute="bottom" constant="8" id="rlG-Tt-d3h"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xy-Pe-qwV" userLabel="Row 1">

@@ -74,6 +74,10 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet weak var charSet1: UIView!
     @IBOutlet weak var charSet2: UIView!
 
+    
+
+    var suggestionString: UILexicon?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: "KeyboardView", bundle: nil)
@@ -81,6 +85,9 @@ class KeyboardViewController: UIInputViewController {
         view = objects[0] as? UIView
 
         charSet2.isHidden = true
+
+
+
     }
 
     @IBAction func nextKeyboardPressed(button: UIButton) {
@@ -145,6 +152,10 @@ class KeyboardViewController: UIInputViewController {
                 }
             }
         }
+    }
+
+    @objc func useSuggestion() {
+        
     }
 
 }

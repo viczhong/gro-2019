@@ -5,60 +5,6 @@
 ////  Created by Victor Zhong on 11/1/19.
 ////  Copyright © 2019 Victor Zhong. All rights reserved.
 ////
-//
-//import UIKit
-//
-//class KeyboardViewController: UIInputViewController {
-//
-//    @IBOutlet var nextKeyboardButton: UIButton!
-//
-//    override func updateViewConstraints() {
-//        super.updateViewConstraints()
-//
-//        // Add custom view sizing constraints here
-//    }
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Perform custom UI setup here
-//        self.nextKeyboardButton = UIButton(type: .system)
-//
-//        self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
-//        self.nextKeyboardButton.sizeToFit()
-//        self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//        self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
-//
-//        self.view.addSubview(self.nextKeyboardButton)
-//
-//        self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-//        self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-//    }
-//
-//    override func viewWillLayoutSubviews() {
-//        self.nextKeyboardButton.isHidden = !self.needsInputModeSwitchKey
-//        super.viewWillLayoutSubviews()
-//    }
-//
-//    override func textWillChange(_ textInput: UITextInput?) {
-//        // The app is about to change the document's contents. Perform any preparation here.
-//    }
-//
-//    override func textDidChange(_ textInput: UITextInput?) {
-//        // The app has just changed the document's contents, the document context has been updated.
-//
-//        var textColor: UIColor
-//        let proxy = self.textDocumentProxy
-//        if proxy.keyboardAppearance == UIKeyboardAppearance.dark {
-//            textColor = UIColor.white
-//        } else {
-//            textColor = UIColor.black
-//        }
-//        self.nextKeyboardButton.setTitleColor(textColor, for: [])
-//    }
-//
-//}
 
 import UIKit
 
@@ -68,7 +14,7 @@ class KeyboardViewController: UIInputViewController {
 
     var currentWord = ""
 
-let placeholderText = "Start Typing!"
+    let placeholderText = "Start Typing!"
 
     @IBOutlet weak var row1: UIView!
     @IBOutlet weak var row2: UIView!
@@ -125,7 +71,6 @@ let placeholderText = "Start Typing!"
         // TODO: Guess sentence
         suggestionButton.setTitle("Add Bullsheet", for: .normal)
 
-
         UIView.animate(withDuration: 0.2, animations: {
             button.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
         }, completion: {(_) -> Void in
@@ -145,7 +90,6 @@ let placeholderText = "Start Typing!"
     }
 
     @IBAction func returnPressed(button: UIButton) {
-//        (textDocumentProxy as UIKeyInput).insertText("\n")
     }
 
     @IBAction func charSetPressed(button: UIButton) {
@@ -175,5 +119,14 @@ let placeholderText = "Start Typing!"
         }
     }
 
-
 }
+
+//extension KeyboardViewController: SpeechHelperDelegate {
+//
+//    func sendAlert(title: String, message: String) {
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
+//    }
+//
+//}

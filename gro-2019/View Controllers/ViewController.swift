@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import PureLayout
 import Speech
 
 class ViewController: UIViewController {
 
     private lazy var headline: UILabel = {
         let label = UILabel(forAutoLayout: ())
-        label.text = "Hello"
+        label.text = "Demo"
         return label
     }()
 
@@ -36,6 +35,7 @@ class ViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [headline, textField, listenButton])
         stack.axis = .vertical
         stack.alignment = .center
+        stack.spacing = 16
         return stack
     }()
 
@@ -46,15 +46,31 @@ class ViewController: UIViewController {
     }
 
     @objc private func openListenerView() {
-        present(ViewController(), animated: true, completion: nil)
+        let listener = ListenerViewController()
+        listener.delegate = self
+        present(listener, animated: true, completion: nil)
     }
 
     private func setupDesign() {
         self.view.backgroundColor = .white
 
         view.addSubview(stack)
-        stack.autoCenterInSuperview()
+        stack.autoAlignAxis(toSuperviewAxis: .horizontal)
+        stack.autoPinEdge(.leading, to: .leading, of: view, withOffset: 32)
+        stack.autoPinEdge(.trailing, to: .trailing, of: view, withOffset:-32)
     }
 
 }
 
+extension ViewController: ListenerViewDelegate {
+
+    func sendAlert(title: String, message: String) {
+
+    }
+
+    func updateText(text: String) {
+        textField.text = text
+    }
+
+
+}

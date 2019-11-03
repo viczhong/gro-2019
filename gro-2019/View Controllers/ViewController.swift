@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     private lazy var headline: UILabel = {
         let label = UILabel(forAutoLayout: ())
-        label.text = "Demo"
+        label.text = "Speech Recognition Demo"
         return label
     }()
 

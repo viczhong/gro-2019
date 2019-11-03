@@ -94,7 +94,7 @@ class SpeechHelper {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.inputNode.reset()
-        delegate?.recordingCanceled()
+//        delegate?.recordingCanceled()
     }
 
 }
@@ -103,7 +103,7 @@ private extension SpeechHelper {
 
     func restartSpeechTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 2,
+        timer = Timer.scheduledTimer(withTimeInterval: 1,
                                      repeats: false,
                                      block: { [weak self] (timer) in
                                         self?.delegate?.timerStopped()

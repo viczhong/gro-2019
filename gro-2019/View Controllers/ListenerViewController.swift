@@ -31,7 +31,7 @@ class ListenerViewController: UIViewController {
 
     private lazy var recordButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setTitle("Record", for: .normal)
+        button.setTitle("Ready", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.addTarget(self, action: #selector(recordButtonToggled), for: .touchUpInside)
         return button
@@ -59,7 +59,7 @@ class ListenerViewController: UIViewController {
     private lazy var spokenTextLabel: UILabel = {
         let label = UILabel(forAutoLayout: ())
         label.numberOfLines = 3
-        label.text = "Start speaking"
+        label.text = "Ready to listen"
         return label
     }()
 
@@ -97,12 +97,15 @@ class ListenerViewController: UIViewController {
         if isRecording {
             speechHelper?.cancelRecording()
         } else {
-            isRecording = !isRecording
-            recordButton.setTitle("Stop Recording", for: .normal)
+            recordButton.setTitle("Stop Listening", for: .normal)
             speechHelper?.recordAndRecognizeSpeech()
             suggestionHeadlineLabel.isHidden = false
             suggestionTextLabel.isHidden = false
         }
+
+        isRecording = !isRecording
+        let buttonTitle = isRecording ? "Stop listening" : "Ready"
+        recordButton.setTitle(buttonTitle, for: .normal)
     }
     
 }
@@ -151,7 +154,7 @@ private extension ListenerViewController {
                 guard let suggestion = String(data: validData, encoding: .utf8) else { return }
 
                 self?.suggestionTextLabel.text = ("\(self?.speechString ?? "") \(suggestion)")
-                
+
                 print("*** URL Returned: \(suggestion)")
                 print("*** Response: \(response.debugDescription)")
             }

@@ -39,12 +39,6 @@ class ViewController: UIViewController {
         return stack
     }()
 
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(forAutoLayout: ())
-        tableView.delegate = self
-        return tableView
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,9 +70,5 @@ extension ViewController: ListenerViewDelegate {
     func updateText(text: String) {
         textField.text = text
     }
-
-}
-
-extension ViewController: UITableViewDelegate {
 
 }

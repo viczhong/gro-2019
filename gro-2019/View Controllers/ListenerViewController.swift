@@ -23,13 +23,7 @@ class ListenerViewController: UIViewController {
 
     private var speechHelper: SpeechHelper?
 
-    private var speechString: String? {
-        didSet {
-            if oldValue != speechString {
-                makeRequest()
-            }
-        }
-    }
+    private var speechString: String?
 
     private var isRecording = false
 
@@ -181,6 +175,10 @@ extension ListenerViewController: SpeechHelperDelegate {
     func recordingCanceled() {
         delegate?.updateText(text: speechString ?? "")
         self.dismiss(animated: true, completion: nil)
+    }
+
+    func timerStopped() {
+        makeRequest()
     }
 
 }

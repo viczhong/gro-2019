@@ -39,6 +39,12 @@ class ViewController: UIViewController {
         return stack
     }()
 
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(forAutoLayout: ())
+        tableView.delegate = self
+        return tableView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,7 +59,6 @@ class ViewController: UIViewController {
 
     private func setupDesign() {
         self.view.backgroundColor = .white
-
         view.addSubview(stack)
         stack.autoAlignAxis(toSuperviewAxis: .horizontal)
         stack.autoPinEdge(.leading, to: .leading, of: view, withOffset: 32)
@@ -72,5 +77,8 @@ extension ViewController: ListenerViewDelegate {
         textField.text = text
     }
 
+}
+
+extension ViewController: UITableViewDelegate {
 
 }

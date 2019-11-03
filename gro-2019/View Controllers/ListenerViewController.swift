@@ -8,6 +8,7 @@
 
 import UIKit
 import Speech
+import Alamofire
 
 protocol ListenerViewDelegate: SpeechHelperDelegate {
 
@@ -22,9 +23,17 @@ class ListenerViewController: UIViewController {
 
     private var speechHelper: SpeechHelper?
 
-    private var speechString: String?
+    private var speechString: String? {
+        didSet {
+            if oldValue != speechString {
+                makeRequest()
+            }
+        }
+    }
 
     private var isRecording = false
+
+    private var requestCounter = 0
 
     private lazy var recordButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -120,6 +129,39 @@ private extension ListenerViewController {
 
     func setupListener() {
         speechHelper = SpeechHelper(delegate: self)
+    }
+
+    func makeRequest() {
+        print("*** Making request \(requestCounter)")
+        requestCounter += 1
+
+        guard let myURL = URL(string: "http://157.245.196.85:5002/predict") else { return }
+        guard let speech = speechString else { return }
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        var request = try! URLRequest.init(url: myURL, method: .post)
+        let str = speech.data(using: .utf8)
+
+        request.httpBody = str
+        session.dataTask(with: request) { [weak self] (data, response, error) in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    print("Error during session: \(error.debugDescription)")
+                    return
+                }
+
+                guard let validData = data else { return }
+
+                print("*** Data Dump")
+                dump(validData)
+
+                guard let suggestion = String(data: validData, encoding: .utf8) else { return }
+
+                self?.suggestionTextLabel.text = ("\(self?.speechString ?? "") \(suggestion)")
+                
+                print("*** URL Returned: \(suggestion)")
+                print("*** Response: \(response.debugDescription)")
+            }
+        }.resume()
     }
 
 }
